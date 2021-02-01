@@ -1,0 +1,169 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    bool rightHeld = false;
+    bool leftHeld = false;
+    bool upHeld = false;
+    bool downHeld = false;
+    bool onFloor = false;
+    bool hasBeenHit = false;
+
+    bool jump = false;
+    float jumpTime = 0;
+    public float speed = 10.0f;
+    public float movementSpeed = 2.0f;
+    private int twoPlayer = PlayerSet.numPlayers;
+
+    GameObject target;
+    Player2Movement enemy;
+
+    float xVal, yVal, zVal;
+
+    float leftVal, rightVal, upVal, downVal = 0.0f;
+
+    Rigidbody rb = null;
+
+    public SpawnScript newCoin;
+    public GameObject time;
+    //public timerText timer;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        time = GameObject.FindGameObjectWithTag("Timer");
+        //timer = time.GetComponent<timerText>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (hasBeenHit)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, -speed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.12f, transform.position.z);
+        }
+
+        rightHeld = Input.GetKey(KeyCode.D) ? true : false;
+        leftHeld = Input.GetKey(KeyCode.A) ? true : false;
+        upHeld = Input.GetKey(KeyCode.W) ? true : false;
+        downHeld = Input.GetKey(KeyCode.S) ? true : false;
+        if(Input.GetKeyDown(KeyCode.Space) && onFloor)
+        {
+            jump = true;
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        leftVal = leftHeld ? movementSpeed : 0.0f;
+        rightVal = rightHeld ? movementSpeed : 0.0f;
+        upVal = upHeld ? movementSpeed : 0.0f;
+        downVal = downHeld ? movementSpeed : 0.0f;
+
+        if(jump)
+        {
+            if(jumpTime < 5)
+            {
+                rb.AddForce(Vector3.up * 15, ForceMode.VelocityChange);
+            }
+            else if(jumpTime < 9)
+            {
+                rb.AddForce(Vector3.up * 12, ForceMode.VelocityChange);
+            }
+            else if(jumpTime < 12)
+            {
+                rb.AddForce(Vector3.up * 9, ForceMode.VelocityChange);
+            }
+            else
+            {
+                jumpTime = 0;
+                jump = false;
+            }
+            jumpTime++;
+        }
+
+        if(!onFloor)
+        {
+            rb.AddForce(Vector3.down * 4, ForceMode.VelocityChange);
+        }
+        
+        float xVal = rightVal - leftVal;
+        float zVal = upVal - downVal;
+
+        rb.velocity = new Vector3(xVal, 0, zVal);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "MinuteHand" || collision.gameObject.tag == "HourHand")
+        {
+            target = collision.gameObject;
+            hasBeenHit = true;
+        }
+
+        if (collision.gameObject.tag == "Floor")
+        {
+            onFloor = true;
+        }
+
+        if (collision.gameObject.tag == "Coin")
+        {
+            if (twoPlayer == 1)
+            {
+                ScoreVar.p1Score++;
+                slowEnemy();
+            }
+            else
+            {
+                GameManager.instance.TimeIncrease(5.0f);
+            }
+            Destroy(collision.gameObject);
+            newCoin.spawnNewCoin();
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "MinuteHand")
+        {
+            //hasBeenHit = false;
+        }
+
+        if (collision.gameObject.tag == "Floor")
+        {
+            onFloor = false;
+        }
+
+    }
+
+    private void slowEnemy()
+    {
+        GameObject enemyObj = GameObject.FindGameObjectWithTag("Player2");
+        
+        if (enemyObj != null)
+        {
+            enemy = enemyObj.GetComponent<Player2Movement>();
+            enemy.movementSpeed = 1.5f;
+            StartCoroutine(debuffDuration());
+        }
+    }
+
+    IEnumerator debuffDuration()
+    {
+        yield return new WaitForSeconds(5.0f);
+        GameObject enemyObj = GameObject.FindGameObjectWithTag("Player2");
+
+        if (enemyObj != null)
+        {
+            enemy = enemyObj.GetComponent<Player2Movement>();
+            enemy.movementSpeed = 2.0f;
+        }
+    }
+}
+
