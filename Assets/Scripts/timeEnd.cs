@@ -11,18 +11,9 @@ public class timeEnd : MonoBehaviour
     void Start()
     {
         text = GetComponent<Text>();
-        if (PlayerSet.numPlayers == 0)
-        {
-            text.text = "FINAL SCORE: " + ScoreVar.p1Score;
-            ScoreVar.p1Score = 0;
-            ScoreVar.p2Score = 0;
-        }
-        else
-        {
-            text.text = "P1: " + ScoreVar.p1Score.ToString() + '\n' + "P2: " + ScoreVar.p2Score.ToString();
-            ScoreVar.p1Score = 0;
-            ScoreVar.p2Score = 0;
-        }
+        text.text = "FINAL SCORE: " + ScoreVar.p1Score;
+        ScoreVar.p1Score = 0;
+        ScoreVar.p2Score = 0;
     }
 
     // Update is called once per frame

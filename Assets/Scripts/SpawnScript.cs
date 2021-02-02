@@ -7,8 +7,8 @@ public class SpawnScript : MonoBehaviour
     public Coin coinPrefab;
 
     public PlayerMove player1;
-    public PlayerMove player2;
-    private int twoPlayer = PlayerSet.numPlayers;
+    //public PlayerMove player2;
+    //private int twoPlayer = PlayerSet.numPlayers;
 
 
     // Start is called before the first frame update
@@ -19,10 +19,10 @@ public class SpawnScript : MonoBehaviour
 
         //print(twoPlayer);
 
-        if (twoPlayer <= 1)
+        /*if (twoPlayer <= 1)
         {
             player2.gameObject.SetActive(false);
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -31,6 +31,7 @@ public class SpawnScript : MonoBehaviour
 
     }
 
+    // Finds a spot to put a new coin in on the screen
     public void spawnNewCoin()
     {
         Vector3 originPos = spawnCircle(transform.position, 3.0f, Random.value * 360.0f);

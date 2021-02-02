@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public Timer timer;
     public SpawnScript spawner;
-    public ClockHand[] clockHands;
+    //public ClockHand[] clockHands;
     public GameObject soundPrefab;
     public GameObject fxPrefab;
 
@@ -39,24 +39,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        increaseSpeedTimer += Time.deltaTime;
-
-        if (increaseSpeedTimer >= 5.0f)
-        {
-            foreach (ClockHand hand in clockHands)
-            {
-                hand.IncreaseSpeed(15.0f * PlayerSet.numPlayers);
-            }
-            GetComponent<AudioSource>().pitch += 0.1f;
-            increaseSpeedTimer = 0.0f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PlayerSet.numPlayers = 1;
-            ScoreVar.Reset();
-            SceneManager.LoadScene("StartScreen");
-        }
+        
     }
 
     /// <summary>
@@ -97,7 +80,7 @@ public class GameManager : MonoBehaviour
         fxObj.GetComponent<SelfDestruct>().duration = asource.clip.length;
         asource.spatialBlend = 0f;
 
-        asource.volume = 1f * 0.7f;
+        asource.volume = 0.4f;
 
         asource.Play();
     }

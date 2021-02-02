@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1178695930775068045}
   - component: {fileID: 7854443824352126907}
   - component: {fileID: 4484492728332131138}
-  - component: {fileID: 2091887160872503925}
+  - component: {fileID: 7407912435335156872}
   m_Layer: 0
   m_Name: cog2
   m_TagString: Untagged
@@ -55,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2091887160872503925
+--- !u!114 &7407912435335156872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2738408943173578654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e7985ae760eb841bede0824635a453, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ee4fbc38d3cd1c43a4b6227cc7ee6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 60
@@ -207,6 +208,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

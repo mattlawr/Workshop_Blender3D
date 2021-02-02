@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class menuStart : MonoBehaviour
 {
-   public void changeMenuSceneP1()
+   /*public void changeMenuSceneP1()
     {
-        PlayerSet.numPlayers = 1;
+        //PlayerSet.numPlayers = 1;
         SceneManager.LoadScene("final_game");
     }
     public void changeMenuSceneP2()
@@ -19,5 +19,5 @@ public class menuStart : MonoBehaviour
     {
         ScoreVar.Reset();
         SceneManager.LoadScene("StartScreen");
-    }
+    }*/
 }
